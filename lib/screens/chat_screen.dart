@@ -17,7 +17,7 @@ class ChatScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          final documents=streamSnapshot.data!.docs;
+          final documents = streamSnapshot.data!.docs;
           return ListView.builder(
             itemCount: documents.length,
             itemBuilder: (ctx, index) => Container(
@@ -27,8 +27,15 @@ class ChatScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton:
-          FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            FirebaseFirestore.instance
+                .collection('chats/8Zx4el9pUNJHwxbyTJ1M/messages')
+                .add({
+                  'text': 'This was added by clicking the button'
+                });
+          }),
     );
   }
 }
