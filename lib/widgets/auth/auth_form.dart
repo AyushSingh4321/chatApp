@@ -41,13 +41,17 @@ class _AuthFormState extends State<AuthForm> {
                     height: 12,
                   ),
                   ElevatedButton(
-                    child: Text('Login',style: TextStyle(color: Colors.black),),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () {},
                   ),
                   TextButton(
                     child: Text(
                       'Create new account',
-                      style: TextStyle(color: Colors.black),
+                      // style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () {},
                   ),
