@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  const AuthForm({super.key});
+  AuthForm(this.submitFn);
+  final void Function(
+    String email,
+    String password,
+    String username,
+    bool isLogin,
+    BuildContext ctx,
+  ) submitFn;
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -18,9 +25,13 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
     if (isValid) {
       _formKey.currentState!.save();
-      print(_userEmail);
-      print(_userName);
-      print(_userPassword);
+      widget.submitFn(
+        _userEmail,
+        _userPassword.trim(),
+        _userName.trim(),
+        _isLogin,
+        context,
+      );
     }
   }
 
@@ -53,22 +64,22 @@ class _AuthFormState extends State<AuthForm> {
                       _userEmail = value!;
                     },
                   ),
-                  if(!_isLogin)
-                  TextFormField(
-                    key: ValueKey('username'),
-                    validator: (value) {
-                      if (value!.isEmpty || value.length < 4) {
-                        return 'Please enter at least 4 characters';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Username',
+                  if (!_isLogin)
+                    TextFormField(
+                      key: ValueKey('username'),
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 4) {
+                          return 'Please enter at least 4 characters';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                      ),
+                      onSaved: (value) {
+                        _userName = value!;
+                      },
                     ),
-                    onSaved: (value) {
-                      _userName = value!;
-                    },
-                  ),
                   TextFormField(
                     key: ValueKey('password'),
                     validator: (value) {
@@ -91,7 +102,8 @@ class _AuthFormState extends State<AuthForm> {
                   ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.pink),
-                    child: Text(_isLogin? 'Login':'SignUp', style: TextStyle(color: Colors.white)),
+                    child: Text(_isLogin ? 'Login' : 'SignUp',
+                        style: TextStyle(color: Colors.white)),
                     onPressed: _trySubmit,
                   ),
                   TextButton(
