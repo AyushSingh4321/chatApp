@@ -35,22 +35,21 @@ class MessageBubble extends StatelessWidget {
             horizontal: 4,
           ),
           child: Column(
-            crossAxisAlignment: isMe?CrossAxisAlignment.end:CrossAxisAlignment.start,
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-             
-                     Text(
-                      userName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                         color: isMe ? Colors.black : Colors.white,
-                      ),
-                   
-                     ),
+              Text(
+                userName,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: isMe ? Colors.black : Colors.white,
+                ),
+              ),
               Text(
                 message,
                 style: TextStyle(
                     color: isMe ? Colors.black : Colors.white, fontSize: 15),
-                    textAlign: isMe? TextAlign.end:TextAlign.start,
+                textAlign: isMe ? TextAlign.end : TextAlign.start,
               ),
             ],
           ),
