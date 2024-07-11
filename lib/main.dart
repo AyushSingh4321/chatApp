@@ -1,3 +1,4 @@
+import './screens/splash_screen.dart';
 import './screens/auth_screen.dart';
 import './screens/chat_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           primary: Colors.pink,
           background: Colors.pink,
           secondary: Colors.deepPurple,
-          
+
           // brightness: Brightness.dark,
         ),
         buttonTheme: ButtonTheme.of(context).copyWith(
@@ -32,12 +33,17 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),
       ),
-      home:StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder:(ctx,userSnapshot) {
-        if(userSnapshot.hasData){
-        return ChatScreen();
-        }
-        return AuthScreen();
-      }),
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.connectionState == ConnectionState.waiting) {
+              return SplashScreen();
+            }
+            if (userSnapshot.hasData) {
+              return ChatScreen();
+            }
+            return AuthScreen();
+          }),
     );
   }
 }

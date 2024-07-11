@@ -33,7 +33,7 @@ class _AuthFormState extends State<AuthForm> {
   void _trySubmit() {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    if ( !_isLogin && _userImageFile == null ) {
+    if (!_isLogin && _userImageFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please pick an image...'),
@@ -58,27 +58,28 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children:[SizedBox(
-            height:_isLogin?120: 70,
-          ),
-         
-          Center(
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(15),
-              margin: EdgeInsets.all(10),
-              child: Text(
-             _isLogin? 'Welcome Back...': 'Welcome...',
-                style: TextStyle(
-                  fontSize: _isLogin? 47 :60,
-                  color: Colors.white70,
-                  fontStyle: FontStyle.italic,
-                  // fontWeight: FontWeight.w800,
-                ),textAlign: TextAlign.center,
+      child: Column(children: [
+        SizedBox(
+          height: _isLogin ? 120 : 70,
+        ),
+        Center(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(15),
+            margin: EdgeInsets.all(10),
+            child: Text(
+              _isLogin ? 'Welcome Back...' : 'Welcome...',
+              style: TextStyle(
+                fontSize: _isLogin ? 47 : 60,
+                color: Colors.white70,
+                fontStyle: FontStyle.italic,
+                // fontWeight: FontWeight.w800,
               ),
+              textAlign: TextAlign.center,
             ),
-          ), Center(
+          ),
+        ),
+        Center(
           child: Card(
             margin: EdgeInsets.all(20),
             child: SingleChildScrollView(
@@ -91,6 +92,9 @@ class _AuthFormState extends State<AuthForm> {
                     children: [
                       if (!_isLogin) UserImagePicker(_pickedImage),
                       TextFormField(
+                        autocorrect: false,
+                        textCapitalization: TextCapitalization.none,
+                        enableSuggestions: false,
                         key: ValueKey('email'),
                         validator: (value) {
                           if (value!.isEmpty || !value.contains('@')) {
@@ -108,6 +112,9 @@ class _AuthFormState extends State<AuthForm> {
                       ),
                       if (!_isLogin)
                         TextFormField(
+                            autocorrect: true,
+                        textCapitalization: TextCapitalization.words,
+                        enableSuggestions: false,
                           key: ValueKey('username'),
                           validator: (value) {
                             if (value!.isEmpty || value.length < 4) {
@@ -167,8 +174,8 @@ class _AuthFormState extends State<AuthForm> {
               ),
             ),
           ),
-        ),]
-      ),
+        ),
+      ]),
     );
   }
 }
